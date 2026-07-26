@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/scale-response.schema.json",
+  "title": "ScaleAdministration",
+  "description": "WHO-5 / NGSE / IPS administration (PRD §10.2), scored deterministically — no model involved in scoring, only response collection.",
+  "type": "object",
+  "required": ["instrument", "responses", "score", "cycle_day"],
+  "properties": {
+    "instrument": { "type": "string", "enum": ["who5", "ngse", "ips"] },
+    "responses": {
+      "type": "array",
+      "description": "Raw per-item responses. WHO-5: 5 items, 0-5 Likert. NGSE: 8 items, 1-5 Likert. IPS: 9 items, 1-5 Likert.",
+      "items": { "type": "integer" }
+    },
+    "score": {
+      "type": "number",
+      "description": "Deterministically computed per instrument's published scoring method."
+    },
+    "cycle_day": {
+      "type": "integer",
+      "enum": [0, 45, 90],
+      "description": "Administration point in the 90-day cycle."
+    },
+    "floor_policy_triggered": {
+      "type": "boolean",
+      "description": "true when a very-low WHO-5 score fires the supportive-resources message (PRD §16 risk 5). Never a diagnostic message."
+    }
+  },
+  "additionalProperties": false
+}

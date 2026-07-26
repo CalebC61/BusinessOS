@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/diagnostic-tree.schema.json",
+  "title": "DiagnosticTreeNode",
+  "description": "Fixed decision-tree data the Diagnostic interviewer (AGENTS.md Role 1) walks. Never authored or modified at runtime by the model.",
+  "type": "object",
+  "required": ["node_id", "question", "module_candidates", "branches"],
+  "properties": {
+    "node_id": { "type": "string", "pattern": "^dt-[a-z0-9-]+$" },
+    "question": { "type": "string", "minLength": 1 },
+    "module_candidates": {
+      "type": "array",
+      "description": "Subset of the 7 fixed PRD §7 canon modules this node can point toward.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "constraint_finder",
+          "offer_bench",
+          "lead_engine",
+          "money_rules",
+          "time_buyback",
+          "owner_independence",
+          "execution_cadence"
+        ]
+      },
+      "minItems": 1
+    },
+    "branches": {
+      "type": "array",
+      "description": "Answer-pattern to next-node routing. The interviewer selects among these; it cannot invent a branch.",
+      "items": {
+        "type": "object",
+        "required": ["answer_pattern", "next_node_id"],
+        "properties": {
+          "answer_pattern": { "type": "string" },
+          "next_node_id": {
+            "type": ["string", "null"],
+            "description": "null indicates a terminal node — hypothesis_ranking is finalized here."
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/directive.schema.json",
+  "title": "Directive",
+  "description": "Output of the Directive personalizer (AGENTS.md Role 2) and the shape of daily_directive (BLUEPRINT.md §4.2).",
+  "type": "object",
+  "required": ["if_then_plan", "value_link", "rock_link", "verification_spec", "protocol_card_id"],
+  "properties": {
+    "protocol_card_id": {
+      "type": "string",
+      "description": "content/protocols/*.md id being slot-filled. Card text itself is fixed; only declared slots are personalized."
+    },
+    "if_then_plan": {
+      "type": "string",
+      "description": "Rendered implementation-intention: 'if [cue/time/place], then I will [action]'."
+    },
+    "value_link": {
+      "type": "string",
+      "description": "One of the user's onboarding-selected values (PRD §8.1 card sort)."
+    },
+    "rock_link": { "type": "string", "format": "uuid" },
+    "weekly_lead_action_link": { "type": "string", "format": "uuid" },
+    "anchor_time": { "type": "string", "format": "time" },
+    "verification_spec": {
+      "type": "object",
+      "required": ["accepted_artifact_types", "rubric"],
+      "properties": {
+        "accepted_artifact_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["screenshot", "photo", "document", "calendar_record", "xero_object", "call_log"]
+          },
+          "minItems": 1
+        },
+        "rubric": {
+          "type": "array",
+          "description": "Deterministic checklist items the Verification judge scores against.",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "capture_budget_seconds": {
+          "type": "integer",
+          "maximum": 60,
+          "description": "Hard constraint from PRD §9 — every spec is designed backwards from this."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

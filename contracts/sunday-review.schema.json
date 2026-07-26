@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/sunday-review.schema.json",
+  "title": "SundayReview",
+  "description": "Output of the Sunday Review writer (AGENTS.md Role 5). profit_pulse, vacr_trend, and micro_check are pre-computed by deterministic code and passed in as input — the model narrates only.",
+  "type": "object",
+  "required": ["profit_pulse", "vacr_trend", "pattern_insight", "micro_check", "woop_output", "next_lead_actions"],
+  "properties": {
+    "profit_pulse": {
+      "type": "object",
+      "description": "Deterministic, from Xero pull. Model may only reference these fields, never compute new ones.",
+      "additionalProperties": true
+    },
+    "vacr_trend": {
+      "type": "object",
+      "description": "Deterministic, trailing-30 VACR + streak.",
+      "additionalProperties": true
+    },
+    "pattern_insight": {
+      "type": "string",
+      "description": "Narration grounded strictly in profit_pulse/vacr_trend fields, e.g. 'Sales actions: 40% completion. Ops actions: 90%.' Any numeric claim not traceable to an input field fails validation."
+    },
+    "micro_check": {
+      "type": "object",
+      "description": "Rotating 2-item scale response, deterministic collection.",
+      "additionalProperties": true
+    },
+    "woop_output": {
+      "type": "object",
+      "required": ["wish", "outcome", "obstacle", "plan"],
+      "properties": {
+        "wish": { "type": "string" },
+        "outcome": { "type": "string" },
+        "obstacle": { "type": "string" },
+        "plan": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "next_lead_actions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "maxItems": 3,
+      "description": "Feeds weekly_lead_action rows for the coming week."
+    }
+  },
+  "additionalProperties": false
+}

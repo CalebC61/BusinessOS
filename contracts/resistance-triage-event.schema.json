@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/resistance-triage-event.schema.json",
+  "title": "ResistanceTriageEvent",
+  "description": "One row per triage routing decision (PRD §8.4 table). Written by deterministic code alongside skip_log; consumed by Coaching chat (AGENTS.md Role 3) to deliver the matching micro-protocol.",
+  "type": "object",
+  "required": ["skip_log_id", "block_type", "signal_phrase", "micro_protocol_id"],
+  "properties": {
+    "skip_log_id": { "type": "string", "format": "uuid" },
+    "block_type": {
+      "type": "string",
+      "enum": ["low_expectancy", "low_value", "delay", "impulsiveness"]
+    },
+    "signal_phrase": {
+      "type": "string",
+      "description": "The matched phrase pattern that drove classification, e.g. prediction language, meaning language, deferral language, distraction language."
+    },
+    "micro_protocol_id": {
+      "type": "string",
+      "description": "content/resistance-triage/*.md id: thought-record-experiment | values-defusion | five-minute-restart | environment-commitment-device."
+    }
+  },
+  "additionalProperties": false
+}

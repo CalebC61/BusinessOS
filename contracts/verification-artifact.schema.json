@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/verification-artifact.schema.json",
+  "title": "VerificationArtifact",
+  "description": "Two-pass output of the Verification judge (AGENTS.md Role 4). Pass 1 (extraction) and pass 2 (rubric_result) are separate calls by design. The model never sets status directly — deterministic code applies the confidence threshold (BLUEPRINT.md §7).",
+  "type": "object",
+  "required": ["directive_id", "artifact_type", "extraction", "rubric_result", "confidence", "status"],
+  "properties": {
+    "directive_id": { "type": "string", "format": "uuid" },
+    "artifact_type": {
+      "type": "string",
+      "enum": ["screenshot", "photo", "document", "calendar_record", "xero_object", "call_log"]
+    },
+    "storage_path": { "type": "string" },
+    "extraction": {
+      "type": "object",
+      "description": "Pass 1 — what the artifact actually shows. Vision/LLM, structured, no verdict.",
+      "additionalProperties": true
+    },
+    "rubric_result": {
+      "type": "array",
+      "description": "Pass 2 — deterministic checklist scored by the model against the directive's verification_spec.rubric.",
+      "items": {
+        "type": "object",
+        "required": ["item", "met"],
+        "properties": {
+          "item": { "type": "string" },
+          "met": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["verified", "attested"],
+      "description": "Set by deterministic code from confidence vs. threshold — never written directly by the model."
+    }
+  },
+  "additionalProperties": false
+}

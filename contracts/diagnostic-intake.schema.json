@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/diagnostic-intake.schema.json",
+  "title": "DiagnosticInterviewerOutput",
+  "description": "Structured output of the Diagnostic interviewer (AGENTS.md Role 1) for a single turn, plus the row it accumulates into diagnostic_intake (BLUEPRINT.md §4.1).",
+  "type": "object",
+  "required": ["next_question", "tree_node_id", "hypothesis_ranking"],
+  "properties": {
+    "next_question": {
+      "type": "string",
+      "description": "Must match a question bank entry keyed by tree_node_id — the model cannot free-write a question."
+    },
+    "tree_node_id": { "type": "string", "pattern": "^dt-[a-z0-9-]+$" },
+    "hypothesis_ranking": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["module", "confidence"],
+        "properties": {
+          "module": {
+            "type": "string",
+            "enum": [
+              "constraint_finder",
+              "offer_bench",
+              "lead_engine",
+              "money_rules",
+              "time_buyback",
+              "owner_independence",
+              "execution_cadence"
+            ]
+          },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "additionalProperties": false
+      },
+      "maxItems": 7
+    },
+    "intake_record": {
+      "type": "object",
+      "description": "Accumulated fields written to diagnostic_intake once the tree reaches a terminal node.",
+      "properties": {
+        "business_model": { "type": "string" },
+        "offer": { "type": "string" },
+        "pricing": { "type": "object" },
+        "ttm_revenue": { "type": "number" },
+        "lead_sources": { "type": "array", "items": { "type": "string" } },
+        "hours_breakdown": { "type": "object" },
+        "what_tried": { "type": "string" },
+        "constraint_hypothesis": {
+          "type": "string",
+          "enum": [
+            "constraint_finder",
+            "offer_bench",
+            "lead_engine",
+            "money_rules",
+            "time_buyback",
+            "owner_independence",
+            "execution_cadence"
+          ]
+        },
+        "constraint_confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.dev/operator/contracts/skip-log.schema.json",
+  "title": "SkipLog",
+  "description": "Written when a directive is skipped or the user taps 'stuck' (PRD §8.2, §8.4). Classification of thought_selected into triage_category is a deterministic lookup, not a model call.",
+  "type": "object",
+  "required": ["directive_id", "thought_selected", "triage_category", "routed_protocol_id"],
+  "properties": {
+    "directive_id": { "type": "string", "format": "uuid" },
+    "thought_selected": {
+      "type": "string",
+      "description": "The user-picked thought from the triage prompt, e.g. 'it won't work anyway'."
+    },
+    "triage_category": {
+      "type": "string",
+      "enum": ["low_expectancy", "low_value", "delay", "impulsiveness"]
+    },
+    "routed_protocol_id": {
+      "type": "string",
+      "description": "content/resistance-triage/*.md id matching triage_category."
+    }
+  },
+  "additionalProperties": false
+}
