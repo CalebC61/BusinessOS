@@ -39,6 +39,13 @@ export default async function DashboardPage() {
   const scalesDone = new Set((day0Scales ?? []).map((s) => s.instrument)).size;
   const baselineComplete = scalesDone >= 3 && Boolean(values);
 
+  const { data: profitBaseline } = await supabase
+    .from("profit_baseline")
+    .select("source, trailing_12mo_pnl")
+    .order("captured_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
   return (
     <main className={styles.wrap}>
       <header className={styles.header}>
@@ -87,6 +94,19 @@ export default async function DashboardPage() {
           </p>
           <Link className={styles.cta} href="/baseline">
             {scalesDone > 0 || values ? "Continue baseline" : "Start baseline"}
+          </Link>
+        </section>
+      )}
+
+      {profitBaseline ? (
+        <p className={styles.baselineDone}>
+          Profit baseline &middot; complete ({profitBaseline.source})
+        </p>
+      ) : (
+        <section className={styles.empty}>
+          <p>No profit baseline yet — connect Xero or enter your trailing 12-month P&amp;L.</p>
+          <Link className={styles.cta} href="/profit">
+            Set profit baseline
           </Link>
         </section>
       )}

@@ -87,6 +87,20 @@ user_values (
 )  -- writer: det. Added in supabase/migrations/0002_user_values.sql (M2) —
    -- not in the original table list above; directive.schema.json's value_link
    -- needs somewhere to point, and that gap only surfaced during the M2 build.
+
+xero_connection (
+  id uuid pk,
+  user_id uuid fk,
+  tenant_id text, tenant_name text,
+  access_token text, refresh_token text, expires_at timestamptz,
+  connected_at timestamptz
+)  -- writer: det. Added in supabase/migrations/0003_xero_connection.sql (M3).
+   -- Server-only access (route handlers, never client code) despite RLS
+   -- already scoping it to its owner. profit_baseline.trailing_12mo_pnl is
+   -- the normalized shape both the Xero pull and manual entry write to:
+   -- { period_start, period_end, monthly: [{month, revenue, expenses, net_profit}],
+   --   total_revenue, total_expenses, total_net_profit } — 12 monthly rows,
+   -- source-agnostic so nothing downstream needs to know where it came from.
 ```
 
 ### 4.2 Rock → directive chain
