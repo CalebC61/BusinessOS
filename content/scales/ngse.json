@@ -1,0 +1,24 @@
+{
+  "instrument": "ngse",
+  "name": "New General Self-Efficacy Scale",
+  "citation": "Chen, Gully & Eden, 2001. Tracks belief in ability to execute — PRD §10.2.",
+  "instructions": "How much do you agree or disagree with each statement about yourself?",
+  "response_scale": [
+    { "value": 1, "label": "Strongly disagree" },
+    { "value": 2, "label": "Disagree" },
+    { "value": 3, "label": "Neither agree nor disagree" },
+    { "value": 4, "label": "Agree" },
+    { "value": 5, "label": "Strongly agree" }
+  ],
+  "items": [
+    "I will be able to achieve most of the goals that I have set for myself.",
+    "When facing difficult tasks, I am certain that I will accomplish them.",
+    "In general, I think that I can obtain outcomes that are important to me.",
+    "I believe I can succeed at most any endeavor to which I set my mind.",
+    "I will be able to successfully overcome many challenges.",
+    "I am confident that I can perform effectively on many different tasks.",
+    "Compared to other people, I can do most tasks very well.",
+    "Even when things are tough, I can perform quite well."
+  ],
+  "reverse_scored_indices": []
+}

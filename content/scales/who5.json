@@ -1,0 +1,22 @@
+{
+  "instrument": "who5",
+  "name": "WHO-5 Well-Being Index",
+  "citation": "WHO Regional Office for Europe, 1998. Public, freely available, non-diagnostic — PRD §10.2.",
+  "instructions": "Over the last two weeks, how much of the time have each of these been true for you?",
+  "response_scale": [
+    { "value": 5, "label": "All of the time" },
+    { "value": 4, "label": "Most of the time" },
+    { "value": 3, "label": "More than half the time" },
+    { "value": 2, "label": "Less than half the time" },
+    { "value": 1, "label": "Some of the time" },
+    { "value": 0, "label": "At no time" }
+  ],
+  "items": [
+    "I have felt cheerful and in good spirits",
+    "I have felt calm and relaxed",
+    "I have felt active and vigorous",
+    "I woke up feeling fresh and rested",
+    "My daily life has been filled with things that interest me"
+  ],
+  "reverse_scored_indices": []
+}

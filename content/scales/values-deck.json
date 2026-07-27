@@ -1,0 +1,20 @@
+{
+  "instructions": "Pick the 3 that matter most to you right now — not the 3 that sound best.",
+  "pick_count": 3,
+  "cards": [
+    { "id": "security", "label": "Security", "description": "Stability you can plan around — for you and the people who depend on you." },
+    { "id": "craftsmanship", "label": "Craftsmanship", "description": "Doing the work itself well, not just getting it done." },
+    { "id": "family", "label": "Family", "description": "Time and presence for the people closest to you." },
+    { "id": "independence", "label": "Independence", "description": "Answering to your own judgment, not someone else's." },
+    { "id": "growth", "label": "Growth", "description": "Becoming more capable — as an owner and as a person." },
+    { "id": "integrity", "label": "Integrity", "description": "Doing what you said you'd do, especially when no one's checking." },
+    { "id": "adventure", "label": "Adventure", "description": "Taking real risks and seeing what you're capable of." },
+    { "id": "recognition", "label": "Recognition", "description": "Being seen and respected for what you've built." },
+    { "id": "service", "label": "Service", "description": "Making a real difference for your customers or community." },
+    { "id": "mastery", "label": "Mastery", "description": "Getting genuinely excellent at the thing you do." },
+    { "id": "legacy", "label": "Legacy", "description": "Building something that outlasts your daily involvement." },
+    { "id": "connection", "label": "Connection", "description": "Real relationships with your team, customers, and peers." },
+    { "id": "health", "label": "Health", "description": "Protecting the energy and body the business runs on." },
+    { "id": "adaptability", "label": "Adaptability", "description": "Staying light on your feet as things change." }
+  ]
+}

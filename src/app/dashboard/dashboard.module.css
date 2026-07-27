@@ -100,3 +100,10 @@
   color: var(--foreground-dim);
   line-height: 1.5;
 }
+
+.baselineDone {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}

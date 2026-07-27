@@ -78,6 +78,15 @@ profit_baseline (
   trailing_12mo_pnl jsonb,
   captured_at timestamptz
 )  -- writer: xero pull via n8n, or det (manual entry validation)
+
+user_values (
+  id uuid pk,
+  user_id uuid fk,
+  values text[],                   -- exactly 3, from content/scales/values-deck.json
+  selected_at timestamptz
+)  -- writer: det. Added in supabase/migrations/0002_user_values.sql (M2) —
+   -- not in the original table list above; directive.schema.json's value_link
+   -- needs somewhere to point, and that gap only surfaced during the M2 build.
 ```
 
 ### 4.2 Rock → directive chain

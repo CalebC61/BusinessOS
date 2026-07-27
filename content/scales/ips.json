@@ -1,0 +1,27 @@
+{
+  "instrument": "ips",
+  "name": "Irrational Procrastination Scale",
+  "citation": "Steel, 2010. Tracks the intention-action gap — PRD §10.2.",
+  "wording_verified": false,
+  "wording_note": "Item text below is a good-faith reconstruction of the IPS's themes and is NOT confirmed word-for-word against Steel's original published instrument. Verify against the primary source before this scale is shown to real users — see M2 commit notes.",
+  "instructions": "How true is each statement of you?",
+  "response_scale": [
+    { "value": 1, "label": "Very false of me" },
+    { "value": 2, "label": "False of me" },
+    { "value": 3, "label": "Neither true nor false of me" },
+    { "value": 4, "label": "True of me" },
+    { "value": 5, "label": "Very true of me" }
+  ],
+  "items": [
+    "I put off things so long that my well-being or efficiency unnecessarily suffers.",
+    "I delay tasks beyond what is reasonable.",
+    "I am continually saying \"I'll do it tomorrow.\"",
+    "I put off making decisions until it's too late.",
+    "Even tasks that require little else except getting started, I find I get done days later.",
+    "I generally delay before starting on work I have to do.",
+    "I am not very good at meeting deadlines.",
+    "In the back of my mind, I know I should get started, but I still find myself putting it off.",
+    "I get things done in time by making myself work earlier than I would like to."
+  ],
+  "reverse_scored_indices": [8]
+}

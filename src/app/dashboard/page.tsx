@@ -24,6 +24,21 @@ export default async function DashboardPage() {
     .limit(1)
     .maybeSingle();
 
+  const { data: day0Scales } = await supabase
+    .from("scale_administration")
+    .select("instrument")
+    .eq("cycle_day", 0);
+
+  const { data: values } = await supabase
+    .from("user_values")
+    .select("id")
+    .order("selected_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const scalesDone = new Set((day0Scales ?? []).map((s) => s.instrument)).size;
+  const baselineComplete = scalesDone >= 3 && Boolean(values);
+
   return (
     <main className={styles.wrap}>
       <header className={styles.header}>
@@ -58,6 +73,20 @@ export default async function DashboardPage() {
           </p>
           <Link className={styles.cta} href="/diagnostic">
             Start the diagnostic
+          </Link>
+        </section>
+      )}
+
+      {baselineComplete ? (
+        <p className={styles.baselineDone}>Day-0 baseline &middot; complete</p>
+      ) : (
+        <section className={styles.empty}>
+          <p>
+            Baseline not complete — WHO-5, NGSE, IPS, and your 3 values
+            ({scalesDone}/3 scales done{values ? "" : ", values not set"}).
+          </p>
+          <Link className={styles.cta} href="/baseline">
+            {scalesDone > 0 || values ? "Continue baseline" : "Start baseline"}
           </Link>
         </section>
       )}
