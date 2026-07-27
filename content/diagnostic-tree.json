@@ -1,0 +1,129 @@
+{
+  "$schema": "../contracts/diagnostic-tree.schema.json",
+  "root": "dt-root",
+  "nodes": [
+    {
+      "node_id": "dt-root",
+      "question": "In a sentence or two — what does your business sell, and who buys it?",
+      "module_candidates": [
+        "constraint_finder", "offer_bench", "lead_engine", "money_rules",
+        "time_buyback", "owner_independence", "execution_cadence"
+      ],
+      "branches": [
+        { "answer_pattern": "any answer", "next_node_id": "dt-tried" }
+      ]
+    },
+    {
+      "node_id": "dt-tried",
+      "question": "What have you already tried to fix or grow this — courses, hires, a different offer, anything?",
+      "module_candidates": [
+        "constraint_finder", "offer_bench", "lead_engine", "money_rules",
+        "time_buyback", "owner_independence", "execution_cadence"
+      ],
+      "branches": [
+        { "answer_pattern": "any answer", "next_node_id": "dt-revenue" }
+      ]
+    },
+    {
+      "node_id": "dt-revenue",
+      "question": "What's your trailing 12-month revenue, roughly?",
+      "module_candidates": [
+        "constraint_finder", "offer_bench", "lead_engine", "money_rules",
+        "time_buyback", "owner_independence", "execution_cadence"
+      ],
+      "branches": [
+        { "answer_pattern": "any answer", "next_node_id": "dt-pricing" }
+      ]
+    },
+    {
+      "node_id": "dt-pricing",
+      "question": "How do you price, and are you winning mostly on price, or on value?",
+      "module_candidates": ["offer_bench"],
+      "branches": [
+        {
+          "answer_pattern": "pricing feels underpriced, commodity, or the owner wins mostly on being cheaper / can't justify a premium",
+          "next_node_id": null
+        },
+        {
+          "answer_pattern": "offer feels differentiated and priced fairly — this isn't the block",
+          "next_node_id": "dt-leads"
+        }
+      ]
+    },
+    {
+      "node_id": "dt-leads",
+      "question": "Where do most of your leads come from, and is that flow consistent month to month?",
+      "module_candidates": ["lead_engine"],
+      "branches": [
+        {
+          "answer_pattern": "inconsistent, mostly referrals or the owner's personal network, no repeatable channel",
+          "next_node_id": null
+        },
+        {
+          "answer_pattern": "lead flow is fine and reasonably consistent — this isn't the block",
+          "next_node_id": "dt-cash"
+        }
+      ]
+    },
+    {
+      "node_id": "dt-cash",
+      "question": "Is revenue turning into real profit, or does it disappear somewhere?",
+      "module_candidates": ["money_rules"],
+      "branches": [
+        {
+          "answer_pattern": "revenue exists but margin is thin, inconsistent, or there's no real cash allocation discipline",
+          "next_node_id": null
+        },
+        {
+          "answer_pattern": "margin is fine — this isn't the block",
+          "next_node_id": "dt-hours"
+        }
+      ]
+    },
+    {
+      "node_id": "dt-hours",
+      "question": "Walk me through your hours — what fraction of your week goes to things only you can do, versus things anyone could do?",
+      "module_candidates": ["time_buyback"],
+      "branches": [
+        {
+          "answer_pattern": "the owner is mostly stuck on low-value, delegable tasks",
+          "next_node_id": null
+        },
+        {
+          "answer_pattern": "the owner's time is already mostly high-leverage — this isn't the block",
+          "next_node_id": "dt-independence"
+        }
+      ]
+    },
+    {
+      "node_id": "dt-independence",
+      "question": "If you took two full weeks off with no contact, what happens to the business?",
+      "module_candidates": ["owner_independence"],
+      "branches": [
+        {
+          "answer_pattern": "it mostly stops, nothing runs without the owner personally",
+          "next_node_id": null
+        },
+        {
+          "answer_pattern": "it would mostly keep running — this isn't the block",
+          "next_node_id": "dt-cadence"
+        }
+      ]
+    },
+    {
+      "node_id": "dt-cadence",
+      "question": "Do you run a consistent weekly operating rhythm — a real review, real priorities — or does each week just happen to you?",
+      "module_candidates": ["execution_cadence", "constraint_finder"],
+      "branches": [
+        {
+          "answer_pattern": "no real rhythm, reactive week to week",
+          "next_node_id": null
+        },
+        {
+          "answer_pattern": "already runs a disciplined weekly rhythm and is still stuck — the constraint isn't obviously any single module above",
+          "next_node_id": null
+        }
+      ]
+    }
+  ]
+}

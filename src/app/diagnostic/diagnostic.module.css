@@ -1,0 +1,126 @@
+.wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 2px rgba(21, 25, 28, 0.06);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 13.5px;
+  color: var(--foreground-dim);
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--foreground-dim);
+  margin-top: 20px;
+  display: block;
+}
+
+.textarea {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-size: 14.5px;
+  font-family: inherit;
+  background: var(--background);
+  color: var(--foreground);
+  resize: vertical;
+  margin-top: 6px;
+}
+
+.textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.submit {
+  margin-top: 18px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 7px;
+  padding: 11px 14px;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.rankingList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.rankingItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--foreground-dim);
+}
+
+.rankingBar {
+  flex: 0 0 120px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.rankingBarFill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+}

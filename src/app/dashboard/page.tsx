@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/login/actions";
+import { MODULE_LABELS, type ConstraintModule } from "@/lib/diagnostic/tree";
 import styles from "./dashboard.module.css";
 
 export default async function DashboardPage() {
@@ -12,6 +14,15 @@ export default async function DashboardPage() {
   if (!user) {
     redirect("/login");
   }
+
+  // RLS scopes this to the signed-in user's own rock via the cycle join policy —
+  // no explicit user filter needed (BLUEPRINT.md §4.2 / supabase/migrations/0001_init.sql).
+  const { data: rock } = await supabase
+    .from("rock")
+    .select("statement, constraint_module")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
   return (
     <main className={styles.wrap}>
@@ -28,12 +39,28 @@ export default async function DashboardPage() {
         <p className={styles.subtitle}>Signed in as {user.email}</p>
       </header>
 
-      <section className={styles.empty}>
-        <p>
-          No directive yet — the Diagnostic (M1) hasn&apos;t run for this
-          account, so there&apos;s no rock to descend a directive from.
-        </p>
-      </section>
+      {rock ? (
+        <section className={styles.rock}>
+          <p className={styles.rockLabel}>
+            90-day rock &middot; {MODULE_LABELS[rock.constraint_module as ConstraintModule]}
+          </p>
+          <p className={styles.rockStatement}>{rock.statement}</p>
+          <p className={styles.rockFootnote}>
+            No directive yet — the daily loop (M4) hasn&apos;t shipped, so
+            there&apos;s nowhere yet to descend today&apos;s action from this rock.
+          </p>
+        </section>
+      ) : (
+        <section className={styles.empty}>
+          <p>
+            No rock yet — run the diagnostic to name your constraint and
+            propose a 90-day rock.
+          </p>
+          <Link className={styles.cta} href="/diagnostic">
+            Start the diagnostic
+          </Link>
+        </section>
+      )}
     </main>
   );
 }

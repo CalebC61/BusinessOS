@@ -7,10 +7,14 @@
   "required": ["next_question", "tree_node_id", "hypothesis_ranking"],
   "properties": {
     "next_question": {
-      "type": "string",
-      "description": "Must match a question bank entry keyed by tree_node_id — the model cannot free-write a question."
+      "type": ["string", "null"],
+      "description": "Must match a question bank entry keyed by tree_node_id — the model cannot free-write a question. null once the tree reaches a terminal branch (diagnostic complete)."
     },
-    "tree_node_id": { "type": "string", "pattern": "^dt-[a-z0-9-]+$" },
+    "tree_node_id": {
+      "type": "string",
+      "pattern": "^dt-[a-z0-9-]+$",
+      "description": "The node the conversation is now at — the node just answered when terminal, the newly-entered node otherwise."
+    },
     "hypothesis_ranking": {
       "type": "array",
       "items": {
@@ -61,6 +65,10 @@
         "constraint_confidence": { "type": "number", "minimum": 0, "maximum": 1 }
       },
       "additionalProperties": false
+    },
+    "rock_proposal": {
+      "type": ["string", "null"],
+      "description": "A specific, difficult 90-day rock statement (PRD §6 row 7 / content/protocols/07-goal-setting-rock.md), synthesized from the full intake — present only on the terminal turn, editable by the user before it's written to the rock table."
     }
   },
   "additionalProperties": false
